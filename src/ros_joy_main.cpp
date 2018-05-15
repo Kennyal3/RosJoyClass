@@ -18,8 +18,10 @@ int main(int argc, char *argv[]){
 	bool button_start = false;
 	int steer_axis = 0;
 	int throttle_axis = 5;
+	int brake_axis = 2;
 	double steer = 0.0;
 	double throttle = 0.0;
+	double brake = 0.0;
 
 	ros::init(argc, argv, "joy_test");
 	ros::NodeHandle nh;
@@ -28,8 +30,9 @@ int main(int argc, char *argv[]){
 	while(ros::ok()){
 		steer = joy_stick.get_axis(steer_axis);
 		throttle = joy_stick.get_axis(throttle_axis);
+		brake = joy_stick.get_axis(brake_axis);
 		button_start = joy_stick.get_button(7);
-		cout << "start: " << button_start << " steer: " << steer << " throttle: " << throttle << endl;
+		cout << "start: " << button_start << " steer: " << steer << " throttle: " << throttle << " brake: " << brake << endl;
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
