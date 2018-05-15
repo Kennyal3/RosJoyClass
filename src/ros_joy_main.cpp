@@ -11,14 +11,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-	bool button_green = false;
-	bool button_red = false;
-	bool button_blue = false;
-	bool button_orange = false;
 	bool button_start = false;
-	int steer_axis = 0;
-	int throttle_axis = 5;
-	int brake_axis = 2;
 	double steer = 0.0;
 	double throttle = 0.0;
 	double brake = 0.0;
@@ -28,14 +21,15 @@ int main(int argc, char *argv[]){
 	RosJoyClass joy_stick = RosJoyClass(nh);
 	ros::Rate loop_rate(10);
 	while(ros::ok()){
-		steer = joy_stick.get_axis(steer_axis);
-		throttle = joy_stick.get_axis(throttle_axis);
-		brake = joy_stick.get_axis(brake_axis);
-		button_start = joy_stick.get_button(7);
+		steer = joy_stick.get_axis(joy_stick.LEFT_X);
+		throttle = joy_stick.get_axis(joy_stick.RT);
+		brake = joy_stick.get_axis(joy_stick.LT);
+		button_start = joy_stick.get_button(joy_stick.START);
 		cout << "start: " << button_start << " steer: " << steer << " throttle: " << throttle << " brake: " << brake << endl;
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
-
+	delete joy;
+	cout << "joy terminated..." << endl;
 	return 0;
 }
